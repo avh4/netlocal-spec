@@ -1,47 +1,28 @@
 FORMAT: 1A
-HOST: http://www.google.com
+HOST: http://localhost:9999
 
 # netlocal
-Notes API is a *short texts saving* service similar to its physical paper presence on your table.
+Netlocal provides mocking and stubbing of network services and is controlled through a REST API.
 
-# Group Notes
-Notes related resources of the **Notes API**
+# Group Ports
 
-## Notes Collection [/notes]
-### List all Notes [GET]
-+ Response 200 (application/json)
+## Ports Collection [/ports]
+### Close all mock servers [DELETE]
++ Response 204
 
-        [{
-          "id": 1, "title": "Jogging in park"
-        }, {
-          "id": 2, "title": "Pick-up posters from post-office"
-        }]
+# Group HTTP stubs
+## Stubbing GET requests [/port/{port}/http.gets/{path}]
 
-### Create a Note [POST]
-+ Request (application/json)
-
-        { "title": "Buy cheese and bread for breakfast." }
-
-+ Response 201 (application/json)
-
-        { "id": 3, "title": "Buy cheese and bread for breakfast." }
-
-## Note [/notes/{id}]
-A single Note object with all its details
+### Change a response [PUT]
 
 + Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
+    + port (required, number)
+    + path (required)
+    + stubResponseCode (optional, default:200)
 
-### Retrieve a Note [GET]
-+ Response 200 (application/json)
++ Request
+    + Headers
+    
+            X-NETLOCAL-RESPONSE-CODE: {stubResponseCode}
 
-    + Header
-
-            X-My-Header: The Value
-
-    + Body
-
-            { "id": 2, "title": "Pick-up posters from post-office" }
-
-### Remove a Note [DELETE]
 + Response 204
