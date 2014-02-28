@@ -8,4 +8,5 @@ rspec
 
 ## Development commands
 
-- Build: `rbeautify -O spec/*.rb`
+ - Bootstrap: `bundle`
+ - Build: `rbeautify -O spec/*.rb`
