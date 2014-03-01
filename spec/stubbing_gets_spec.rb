@@ -53,4 +53,14 @@ describe 'stubbing GET requests' do
       response.body.should == '<html>GOODBYE!</html>'
     end
   end
+
+  describe 'stubbing a port that is already in use (by another process)' do
+    before do
+      @response = HTTParty.post('http://localhost:9999/http/9998/get/index.html')
+    end
+
+    it 'returns an error' do
+      @response.code.should == 503
+    end
+  end
 end
