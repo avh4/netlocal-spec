@@ -1,7 +1,8 @@
 require 'httparty'
+require 'support/netlocal_is_running'
 
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
   config.before(:each) do
-    HTTParty.delete("http://localhost:9999/stubs")
+    HTTParty.delete("http://localhost:9999")
   end
 end

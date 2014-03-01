@@ -2,11 +2,8 @@ require 'spec_helper'
 
 describe 'stubbing GET requests' do
   before do
-    HTTParty.post('http://localhost:9999/stubs',
-                  headers: {
-                    'X-NETLOCAL-PORT' => '8765',
-                    'X-NETLOCAL-PATH' => '/index.html',
-                  'X-NETLOCAL-RESPONSE-CODE' => '202' },
+    HTTParty.post('http://localhost:9999/http/8765/get/index.html',
+                  headers: { 'X-NETLOCAL-RESPONSE-CODE' => '202' },
                   body: '<html>HELLO!</html>')
   end
 
@@ -30,11 +27,8 @@ describe 'stubbing GET requests' do
 
   describe 'stubbing the same request twice' do
     before do
-      HTTParty.post('http://localhost:9999/stubs',
-                    headers: {
-                      'X-NETLOCAL-PORT' => '8765',
-                      'X-NETLOCAL-PATH' => '/index.html',
-                    'X-NETLOCAL-RESPONSE-CODE' => '202' },
+      HTTParty.post('http://localhost:9999/http/8765/get/index.html',
+                    headers: { 'X-NETLOCAL-RESPONSE-CODE' => '202' },
                     body: '<html>GOODBYE!</html>')
     end
 

@@ -1,17 +1,13 @@
 require 'spec_helper'
 
-describe 'resetting all stubs' do
+describe 'shutting down a mock HTTP server' do
   before do
-    HTTParty.post('http://localhost:9999/stubs',
-                  headers: {
-                    'X-NETLOCAL-PORT' => '8765',
-                    'X-NETLOCAL-PATH' => '/index.html',
-                  'X-NETLOCAL-RESPONSE-CODE' => '202' },
+    HTTParty.post('http://localhost:9999/http/8765/get/index.html',
                   body: '<html>HELLO!</html>')
-    HTTParty.delete('http://localhost:9999/stubs')
+    HTTParty.delete('http://localhost:9999/http/8765')
   end
 
-  it 'stops listening on stubbed ports' do
+  it 'stops listening on the port' do
     expect { HTTParty.get('http://localhost:8765') }.to raise_error(Errno::ECONNREFUSED)
   end
 end
