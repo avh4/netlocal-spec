@@ -54,9 +54,19 @@ describe 'stubbing GET requests' do
     end
   end
 
-  describe 'stubbing a port that is already in use (by another process)' do
+  describe 'stubbing a port that is already in use on INADDR_ANY (by another process)' do
     before do
       @response = HTTParty.post('http://localhost:9999/http/9998/get/index.html')
+    end
+
+    it 'returns an error' do
+      @response.code.should == 503
+    end
+  end
+
+  describe 'stubbing a port that is already in use on localhost (by another process)' do
+    before do
+      @response = HTTParty.post('http://localhost:9999/http/9997/get/index.html')
     end
 
     it 'returns an error' do
