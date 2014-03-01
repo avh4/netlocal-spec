@@ -4,33 +4,20 @@ HOST: http://localhost:9999
 # netlocal
 Netlocal provides mocking and stubbing of network services and is controlled through a REST API.
 
-# Group Mock HTTP servers
+# Group Current spec
 
-## Servers [/http/{port}]
+## Stubbing HTTP GET requests [/http/{port}/get/{path}]
 
-+ Parameters
-    + port (required, number)
-
-### Create a mock HTTP server [PUT]
-
-All requests to the newly-created server will return 404 with no 
-content.
-
-+ Response 201
-
-### Shut down a mock HTTP server [DELETE]
-
-All recorded stub responses on the specified port will be deleted, 
-and Netlocal will stop listening on the specified port.
-
-+ Response 204
-
-## GET request stubs [/http/{port}/get/{path}]
-
-### Change a response [PUT]
+### Specify a stub response [PUT]
 
 Any previously-recorded response for the given path will be replaced by
 the new response.
+
+If there is no server currently listening on `port`, then a new mock
+HTTP server will be started on that port.
+
+If there is a server currently listening on `port`, but it is not a
+netlocal mock HTTP server, then the request will fail.
 
 If successful, any subsequent GET requests to 
 `http://localhost:{port}/{path}` will return `stubResponseCode` and the
@@ -54,3 +41,29 @@ provided body.
     + stubBody (required) ... (body)
 
 + Response 204
+
+## All mock servers [/]
+### Shut down all mock servers [DELETE]
++ Response 204
+
+# Group Possible future extensions 
+
+## Servers [/http/{port}]
+
++ Parameters
+    + port (required, number)
+
+### Shut down a mock HTTP server [DELETE]
+
+All recorded stub responses on the specified port will be deleted, 
+and Netlocal will stop listening on the specified port.
+
++ Response 204
+
+### Create a mock HTTP server [PUT]
+
+All requests to the newly-created server will return 404 with no 
+content.
+
++ Response 201
+
