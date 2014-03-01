@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe 'shutting down a mock HTTP server' do
+describe 'shutting down all mock servers' do
   before do
     HTTParty.post('http://localhost:9999/http/8765/get/index.html',
                   body: '<html>HELLO!</html>')
-    HTTParty.delete('http://localhost:9999/http/8765')
+    HTTParty.delete('http://localhost:9999')
   end
 
   it 'stops listening on the port' do
