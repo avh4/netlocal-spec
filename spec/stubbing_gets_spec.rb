@@ -19,15 +19,15 @@ describe 'stubbing GET requests' do
     end
 
     it 'returns the provided response code' do
-      @response.code.should == 202
+      expect(@response.code).to eq(202)
     end
 
     it 'returns the provided body' do
-      @response.body.should == '<html>HELLO!</html>'
+      expect(@response.body).to eq('<html>HELLO!</html>')
     end
 
     it 'returns the stubbed content type' do
-      @response.headers['content-type'].should == 'application/x-netlocal-test'
+      expect(@response.headers['content-type']).to eq('application/x-netlocal-test')
     end
   end
 
@@ -37,7 +37,7 @@ describe 'stubbing GET requests' do
     end
 
     it 'returns 200 OK' do
-      @response.code.should == 200
+      expect(@response.code).to eq(200)
     end
   end
 
@@ -50,7 +50,7 @@ describe 'stubbing GET requests' do
 
     it 'serves the most recent stubbed response' do
       response = HTTParty.get('http://localhost:8765/index.html')
-      response.body.should == '<html>GOODBYE!</html>'
+      expect(response.body).to eq('<html>GOODBYE!</html>')
     end
   end
 
@@ -60,7 +60,7 @@ describe 'stubbing GET requests' do
     end
 
     it 'returns an error' do
-      @response.code.should == 503
+      expect(@response.code).to eq(503)
     end
   end
 
@@ -70,7 +70,7 @@ describe 'stubbing GET requests' do
     end
 
     it 'returns an error' do
-      @response.code.should == 503
+      expect(@response.code).to eq(503)
     end
   end
 end
